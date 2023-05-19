@@ -143,7 +143,22 @@ func Signin() gin.HandlerFunc {
 			return
 		}
 
-		ctx.JSON(http.StatusOK, foundUser)
+		UserResponse := models.UserResponse{
+			ID:        foundUser.ID,
+			UserID:    foundUser.UserID,
+			FirstName: foundUser.FirstName,
+			LastName:  foundUser.LastName,
+			Email:     foundUser.Email,
+			Phone:     foundUser.Phone,
+			UserType:  foundUser.UserType,
+			Token: models.UserToken{
+				AccessToken:  foundUser.AccessToken,
+				RefreshToken: foundUser.RefreshToken,
+			},
+			CreatedAt: foundUser.CreatedAt,
+			UpdatedAt: foundUser.UpdatedAt,
+		}
+		ctx.JSON(http.StatusOK, UserResponse)
 	}
 }
 
